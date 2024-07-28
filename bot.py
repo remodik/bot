@@ -18,7 +18,7 @@ import requests
 from discord.utils import get
 from discord import automod
 import json
-from discord.ui import InputText, View, Select, Button, Item, Modal
+from discord.ui import TextInput, View, Select, Button, Item, Modal
 from progress import bar as pb
 import time
 from art import tprint

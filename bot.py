@@ -7,7 +7,7 @@ import io
 import json
 import sqlite3
 import os
-import vk_api
+#import vk_api
 import textwrap
 import subprocess
 from datetime import date
@@ -21,11 +21,11 @@ from discord.utils import get
 from discord import automod
 import json
 from discord.ui import InputText, View, Select, Button, Item, Modal
-from progress import bar as pb
+#from progress import bar as pb
 import time
-from art import tprint
+#from art import tprint
 from discord.ext import commands
-from vk_api.utils import get_random_id
+#from vk_api.utils import get_random_id
 from discord import slash_command
 import re
 intents = discord.Intents.default()
@@ -127,8 +127,8 @@ os.system('cls')
 os.system('title Discord Bot')
 token = 'e94d519ed2afb10deb9c6a4077878796d47577988bbd6e9db48eeadbccc794d9'
 hash_in_passw = '65cc0258cdd8fca110a93a5cabc7d4c98597dc01f96bcd7e31aa61d810183ee2'
-print("\n\n")
-tprint("remod3")
+#print("\n\n")
+#tprint("remod3")
 btokenn = input(' Введите токен: ')
 hash_input_token = my_hash(btokenn)
 
@@ -137,13 +137,13 @@ if hash_input_token == token:
     if hwid == '03046b4b2dce5d6c17b1d3c73c63328a8c768e077ec1fd72428abcbf9b515d48':
         os.system('cls')
         time.sleep(random.randint(1, 5))
-        tprint("    remod3")
+        #tprint("    remod3")
         print("Login as Administrator")
-        a = input("Показать HWID вашего устройства? (y/n): ")
-        if a == 'y':
-            print(hwid)
-        else:
-            pass
+        #a = input("Показать HWID вашего устройства? (y/n): ")
+        #if a == 'y':
+        #    print(hwid)
+        #else:
+        #    pass
     else:
         passw = input(" Введите пароль: ")
         hash_password = my_hash(passw)
@@ -151,13 +151,13 @@ if hash_input_token == token:
             os.system('cls')
             t = random.randint(1, 5)
             time.sleep(t)
-            tprint("\n    remod3\n\n")
-            bar = pb.IncrementalBar("Loading...  |  ", max=100)
-            for i in range(100):
-                bar.next()
-                time.sleep(random.uniform(0.1, 0.5))
-            bar.finish()
-            tprint("    Complete!\n\n\n")
+            #tprint("\n    remod3\n\n")
+            #bar = pb.IncrementalBar("Loading...  |  ", max=100)
+            #for i in range(100):
+            #    bar.next()
+            #    time.sleep(random.uniform(0.1, 0.5))
+            #bar.finish()
+            #tprint("    Complete!\n\n\n")
             print("    |--------------------------------|")
             print("    |Вход в систему выполнен успешно!|")
             print("    |--------------------------------|\n\n")
@@ -1286,96 +1286,6 @@ class MyModal(discord.ui.Modal):
 async def _modal(ctx):
     modal = MyModal(title="Анкета")
     await ctx.send_modal(modal)
-
-
-VK_TOKEN = "vk1.a.cHnHp2KZWEIhb0guLfdr05tpa1FPd1aWaD35i8cvN1lsM_qFKepoh2e0Upq2bjs7UkRZ4QZ7acovqMVMZsMIU7o0UOTxcQxc-O2pvT8jYNcsB9SSWssART36KCFQ4UWBhSdD9vYVNQNvtlmggvLfmaKBPIV5K42JrBNQAl6SyCRstwkUHowC0XLYKRl8e2Yu8puB7TXLWDze-3zxuD6Hdw"
-
-
-def split_message(text, max_size=1024):
-    return textwrap.wrap(text, max_size, replace_whitespace=False)
-
-
-@bot.slash_command(name='vk_post', description="Пост на стене вк",
-                   default_member_permissions=discord.Permissions(administrator=True))
-@commands.has_permissions(administrator=True)
-async def _vk_post(ctx, ids: str):
-    vk_session = vk_api.VkApi(token=VK_TOKEN)
-    vk = vk_session.get_api()
-    response = vk.wall.get(domain=ids, count=1)
-    post_text = response['items'][0]['text']
-    segments = split_message(post_text)
-    attachments = response['items'][0].get('attachments', [])
-    photo_url = None
-    for attachment in attachments:
-        if attachment['type'] == 'photo':
-            photo_url = attachment['photo']['sizes'][-1]['url']
-            break
-    else:
-        owner_id = response['items'][0]['owner_id']
-        post_id = response['items'][0]['id']
-        some_url = f"https://vk.com/wall{owner_id}_{post_id}"
-        embed1 = discord.Embed(title=f"Открыть на стене", url=some_url, color=discord.Color.blurple(),
-                               timestamp=datetime.datetime.now())
-        embed1.set_author(name=ids,
-                          icon_url="https://cdn.discordapp.com/attachments/1214617867501309984/1239941496145182792/93c38a48532b6c82f6e2d0ad8fd611a9.png?ex=6644c101&is=66436f81&hm=3b40294ce22643968f7a3535e69a4c2b6231e39c7651b526b393a14eb111bee8&")
-        embed1.add_field(name="\u200b", value=f"\n\n\n" + post_text)
-        embed1.set_footer(text=f"https://vk.com/{ids}")
-        await ctx.respond("В группе ВК вышел свеженький пост о важных новостях.\n"
-                          "Скорее читайте и не пропускайте ни одной мелочи!\n", embed=embed1)
-    owner_id = response['items'][0]['owner_id']
-    post_id = response['items'][0]['id']
-    some_url = f"https://vk.com/wall{owner_id}_{post_id}"
-    for i, segment in enumerate(segments):
-        embed = discord.Embed(title=f"Открыть на стене" if i == 0 else "\u200b", url=some_url if i == 0 else "\u200b",
-                              color=discord.Color.blurple(), timestamp=datetime.datetime.now())
-        embed.set_author(name=ids,
-                         icon_url="https://cdn.discordapp.com/attachments/1214617867501309984/1239941496145182792/93c38a48532b6c82f6e2d0ad8fd611a9.png?ex=6644c101&is=66436f81&hm=3b40294ce22643968f7a3535e69a4c2b6231e39c7651b526b393a14eb111bee8&")
-        embed.add_field(name="\u200b", value=segment)
-        if photo_url and i == 0:
-            embed.set_image(url=photo_url)
-        embed.set_footer(text=f"https://vk.com/{ids}")
-        await ctx.respond(embed=embed)
-        break
-
-
-@bot.slash_command(name='send_post', guild_ids=[1138204059397005352],
-                   default_member_permissions=discord.Permissions(administrator=True))
-async def _vk_post1(ctx, ids: str):
-    vk_session = vk_api.VkApi(token=VK_TOKEN)
-    vk = vk_session.get_api()
-    response = vk.wall.get(domain=ids, count=1)
-    post_text = response['items'][0]['text']
-    attachments = response['items'][0].get('attachments', [])
-    chat1 = bot.get_channel(1225392657501782016)
-    for attachment in attachments:
-        if attachment['type'] == 'photo':
-            photo_url = attachment['photo']['sizes'][-1]['url']
-            owner_id = response['items'][0]['owner_id']
-            post_id = response['items'][0]['id']
-            some_url = f"https://vk.com/wall{owner_id}_{post_id}"
-            embed = discord.Embed(title=f"Открыть на стене", url=some_url, color=discord.Color.blurple(),
-                                  timestamp=datetime.datetime.now())
-            embed.set_author(name=ids,
-                             icon_url="https://cdn.discordapp.com/attachments/1214617867501309984/1239941496145182792/93c38a48532b6c82f6e2d0ad8fd611a9.png?ex=6644c101&is=66436f81&hm=3b40294ce22643968f7a3535e69a4c2b6231e39c7651b526b393a14eb111bee8&")
-            embed.add_field(name="\u200b", value=f"\n\n\n" + post_text)
-            embed.set_image(url=photo_url)
-            embed.set_footer(text=f"https://vk.com/{ids}")
-            await ctx.respond("В группе ВК вышел свеженький пост о важных новостях.\n"
-                              "Скорее читайте и не пропускайте ни одной мелочи!\n", embed=embed)
-            break
-    else:
-        owner_id = response['items'][0]['owner_id']
-        post_id = response['items'][0]['id']
-        some_url = f"https://vk.com/wall{owner_id}_{post_id}"
-        embed1 = discord.Embed(title=f"Открыть на стене", url=some_url, color=discord.Color.blurple(),
-                               timestamp=datetime.datetime.now())
-        embed1.set_author(name=ids,
-                          icon_url="https://cdn.discordapp.com/attachments/1214617867501309984/1239941496145182792/93c38a48532b6c82f6e2d0ad8fd611a9.png?ex=6644c101&is=66436f81&hm=3b40294ce22643968f7a3535e69a4c2b6231e39c7651b526b393a14eb111bee8&")
-        embed1.add_field(name="\u200b", value=f"\n\n\n" + post_text)
-        embed1.set_footer(text=f"https://vk.com/{ids}")
-        await ctx.respond("ok")
-        await chat1.send('В группе ВК вышел свеженький пост о важных новостях.\nСкорее читайте и не пропускайте ни '
-                         'одной мелочи!\n', embed=embed1)
 
 
 class GiveawayView(discord.ui.View):

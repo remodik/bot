@@ -7,7 +7,6 @@ import io
 import json
 import sqlite3
 import os
-#import vk_api
 import textwrap
 import subprocess
 from datetime import date
@@ -21,11 +20,11 @@ from discord.utils import get
 from discord import automod
 import json
 from discord.ui import InputText, View, Select, Button, Item, Modal
-#from progress import bar as pb
+from progress import bar as pb
 import time
-#from art import tprint
+from art import tprint
 from discord.ext import commands
-#from vk_api.utils import get_random_id
+from vk_api.utils import get_random_id
 from discord import slash_command
 import re
 intents = discord.Intents.default()
@@ -127,8 +126,8 @@ os.system('cls')
 os.system('title Discord Bot')
 token = 'e94d519ed2afb10deb9c6a4077878796d47577988bbd6e9db48eeadbccc794d9'
 hash_in_passw = '65cc0258cdd8fca110a93a5cabc7d4c98597dc01f96bcd7e31aa61d810183ee2'
-#print("\n\n")
-#tprint("remod3")
+print("\n\n")
+tprint("remod3")
 btokenn = input(' Введите токен: ')
 hash_input_token = my_hash(btokenn)
 
@@ -139,11 +138,6 @@ if hash_input_token == token:
         time.sleep(random.randint(1, 5))
         #tprint("    remod3")
         print("Login as Administrator")
-        #a = input("Показать HWID вашего устройства? (y/n): ")
-        #if a == 'y':
-        #    print(hwid)
-        #else:
-        #    pass
     else:
         passw = input(" Введите пароль: ")
         hash_password = my_hash(passw)
@@ -151,13 +145,13 @@ if hash_input_token == token:
             os.system('cls')
             t = random.randint(1, 5)
             time.sleep(t)
-            #tprint("\n    remod3\n\n")
-            #bar = pb.IncrementalBar("Loading...  |  ", max=100)
-            #for i in range(100):
-            #    bar.next()
-            #    time.sleep(random.uniform(0.1, 0.5))
-            #bar.finish()
-            #tprint("    Complete!\n\n\n")
+            tprint("\n    remod3\n\n")
+            bar = pb.IncrementalBar("Loading...  |  ", max=100)
+            for i in range(100):
+                bar.next()
+                time.sleep(random.uniform(0.1, 0.5))
+            bar.finish()
+            tprint("    Complete!\n\n\n")
             print("    |--------------------------------|")
             print("    |Вход в систему выполнен успешно!|")
             print("    |--------------------------------|\n\n")

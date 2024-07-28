@@ -3,7 +3,6 @@ import asyncio
 from asyncio import sleep
 import hashlib
 from datetime import timedelta
-import aiohttp
 import io
 import json
 import sqlite3
@@ -996,31 +995,6 @@ async def set_welcome_error(ctx, error):
         await ctx.respond("У вас нет прав для использования этой команды.", ephemeral=True)
     else:
         await ctx.respond("Произошла ошибка при выполнении команды.", ephemeral=True)
-
-
-@bot.event
-async def on_message(message):
-    if message.author != bot.user:
-        username = str(message.author).split('#')[0]
-        channel = bot.get_channel(1255493055172317284)
-        if message.content:
-            await channel.send(f"{message.author.mention}, отправил сообщение:\n"
-                               f"(guild: {message.guild}) (channel: {message.channel}) {username}: {message.content}")
-            print(f"({message.guild}) ({message.channel}) {username}: {message.content}")
-        for attachment in message.attachments:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(attachment.url) as resp:
-                    if resp.status == 200:
-                        data = io.BytesIO(await resp.read())
-                        await channel.send(f"{message.author.mention}, отправил вложение:\n"
-                                           f"(guild: {message.guild}) (channel: {message.channel}) {username}: ",
-                                           file=discord.File(data, filename=attachment.filename))
-                        print(f"({message.guild}) ({message.channel}) {username}: Фото/Видео")
-        for embed in message.embeds:
-            await channel.send(f"{message.author.mention}, отправил embed:\n"
-                               f"({message.guild}) (channel: {message.channel}) {username}: )", embed=embed)
-            print(f"({message.guild}) ({message.channel}) {username}: Embed")
-        await bot.process_commands(message)
 
 
 @bot.event

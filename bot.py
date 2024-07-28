@@ -13,7 +13,6 @@ from datetime import date
 from discord import SelectOption, SelectMenu
 import discord
 import random
-from discord import option
 import asyncio
 import requests
 from discord.utils import get

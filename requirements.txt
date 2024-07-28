@@ -6,3 +6,4 @@ javascript
 discord-components
 art
 aiohttp
+progress

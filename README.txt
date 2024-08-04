@@ -1,4 +1,4 @@
-ru-ru: Для работоспособности Slash команд необходимо распаковать скачать и распаковать архив в папку с версией Python и выбрать эту версию в качестве интерпретатора.
+ru-ru: Для работоспособности Slash команд необходимо распаковать и скачать архив в папку с версией Python и выбрать эту версию в качестве интерпретатора.
 en-us: For Slash commands to work, you need to unpack, download and unpack the archive into a folder with the Python version and select this version as the interpreter.
 de: Damit die Slash-Befehle funktionieren, müssen Sie den Download entpacken und das Archiv in einen Python-Versionsordner entpacken und diese Version als Interpreter auswählen.
 fr: Pour que les commandes Slash fonctionnent, vous devez décompresser le téléchargement et décompresser l'archive dans un dossier avec la version Python et choisir cette version comme interpréteur.

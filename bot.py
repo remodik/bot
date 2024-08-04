@@ -55,32 +55,29 @@ def get_time_string(seconds):
 
 @bot.slash_command(name="mute", description="Отправить пользователя в тайм-аут",
                    default_member_permissions=discord.Permissions(mute_members=True))
-async def mute(
-        ctx, пользователь: discord.Option(discord.Member, "Пользователь который будет замьючен"),
-        время: discord.Option(str, "Время действия мута(10мин, 15ч, 1д и т.д. Бессрочно если не указано)"),
-        причина: discord.Option(str, "Причина мута"), ):
+async def mute(ctx, пользователь: discord.Option(discord.Member, "Пользователь который будет замьючен"),
+               время: discord.Option(str, "Время действия мута(10мин, 15ч, 1д, 2ч15мин и т.д. Бессрочно если не указано)"),
+               причина: discord.Option(str, "Причина мута"), ):
     if ctx.author.guild_permissions.mute_members:
-        time_pattern = re.compile(r'^(\d+)([мчд])ин?$')
+        time_pattern = re.compile(r'^(\d+)([мчд])(ин)?$|(\d+)([чмд])(\d+)([мчд])(ин)?$')
         match = time_pattern.match(время)
         if not match:
-            await ctx.respond("Неверный формат времени. Используйте формат '10мин', '15ч', '1д' и т.д.")
+            await ctx.respond("Неверный формат времени. Используйте формат '10мин', '15ч', '1д', '2ч15мин' и т.д.\n")
             return
-        duration, unit = match.groups()
-        duration = int(duration)
-        if duration == 1:
-            unit_text = {'м': 'минуту', 'ч': 'час', 'д': 'день'}
-        elif duration in [2, 3, 4]:
-            unit_text = {'м': 'минуты', 'ч': 'часа', 'д': 'дня'}
-        else:
-            unit_text = {'м': 'минут', 'ч': 'часов', 'д': 'дней'}
-        seconds = duration
-        if unit == 'м':
-            seconds *= 60
-        elif unit == 'ч':
-            seconds *= 3600
-        elif unit == 'д':
-            seconds *= 86400
+        if match.group(1) and match.group(2):
+            duration, unit = int(match.group(1)), match.group(2)
+            seconds = duration
+            if unit == 'м':
+                seconds *= 60
+            elif unit == 'ч':
+                seconds *= 3600
+            elif unit == 'д':
+                seconds *= 86400
+        elif match.group(3) and match.group(4) and match.group(5) and match.group(6):
+            hours, _, minutes, _ = int(match.group(3)), match.group(4), int(match.group(5)), match.group(6)
+            seconds = hours * 3600 + minutes * 60
         await пользователь.timeout(until=datetime.datetime.utcnow() + timedelta(seconds=seconds))
+
         time_string = get_time_string(seconds)
         embed = discord.Embed(title="",
                               description=f":white_check_mark: Участник {пользователь.name} замьючен! :speak_no_evil:",

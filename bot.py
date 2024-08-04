@@ -31,7 +31,6 @@ intents.voice_states = True
 intents.typing = True
 bot = commands.Bot(command_prefix='r!', intents=discord.Intents.all())
 bot.remove_command("help")
-staff_hightmine = [ROLE_IDS]
 all_staff = [MEMBER_IDS]
 
 
